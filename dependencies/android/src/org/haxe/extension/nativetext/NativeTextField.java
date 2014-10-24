@@ -152,9 +152,9 @@ class NativeTextField extends EditText implements View.OnFocusChangeListener
         {
             HaxeCallback.DispatchEventToHaxeInstance(
                     getId(),
-                    "openfl.events.Event", 
+                    "nativetext.event.NativeTextEvent", 
                     new Object[] {
-                        "change"
+                        "nativetext_change"
                     });
         }
     }
@@ -183,11 +183,11 @@ class NativeTextField extends EditText implements View.OnFocusChangeListener
     @Override
     public void onFocusChange(View v, boolean hasFocus)
     {
-        final String eventType = (hasFocus ? "focusIn" : "focusOut");
+        final String eventType = (hasFocus ? "nativetext_focus_in" : "nativetext_focus_out");
         
         HaxeCallback.DispatchEventToHaxeInstance(
                 getId(),
-                "openfl.events.FocusEvent", 
+                "nativetext.event.NativeTextEvent", 
                 new Object[] {
                     eventType
                 });

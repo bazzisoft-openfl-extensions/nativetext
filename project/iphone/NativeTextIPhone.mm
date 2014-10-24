@@ -56,8 +56,8 @@ using namespace nativetext;
 {
     extensionkit::DispatchEventToHaxeInstance(
         textField.tag,
-        "openfl.events.FocusEvent",
-        extensionkit::CSTRING, "focusIn",
+        "nativetext.event.NativeTextEvent",
+        extensionkit::CSTRING, "nativetext_focus_in",
         extensionkit::CEND);
 }
 
@@ -65,8 +65,8 @@ using namespace nativetext;
 {
     extensionkit::DispatchEventToHaxeInstance(
         textField.tag,
-        "openfl.events.FocusEvent",
-        extensionkit::CSTRING, "focusOut",
+        "nativetext.event.NativeTextEvent",
+        extensionkit::CSTRING, "nativetext_focus_out",
         extensionkit::CEND);
 }
 
@@ -74,8 +74,8 @@ using namespace nativetext;
 {
     extensionkit::DispatchEventToHaxeInstance(
         textField.tag,
-        "openfl.events.Event",
-        extensionkit::CSTRING, "change",
+        "nativetext.event.NativeTextEvent",
+        extensionkit::CSTRING, "nativetext_change",
         extensionkit::CEND);
 
     return YES;

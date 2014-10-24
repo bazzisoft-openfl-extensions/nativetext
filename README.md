@@ -86,9 +86,9 @@ Usage
 	
             var textField = new NativeTextField(config);
 
-            textField.addEventListener(Event.CHANGE, function(e) { trace(e); });
-			textField.addEventListener(FocusEvent.FOCUS_IN, function(e) { trace(e); });
-			textField.addEventListener(FocusEvent.FOCUS_OUT, function(e) { trace(e); });
+            textField.addEventListener(NativeTextEvent.CHANGE, function(e) { trace(e); });
+			textField.addEventListener(NativeTextEvent.FOCUS_IN, function(e) { trace(e); });
+			textField.addEventListener(NativeTextEvent.FOCUS_OUT, function(e) { trace(e); });
 			textField.addEventListener(NativeTextEvent.RETURN_KEY_PRESSED, function(e) { trace(e); });
 
 			textField.SetText("Hello There");
