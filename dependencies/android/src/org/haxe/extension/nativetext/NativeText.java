@@ -28,6 +28,16 @@ public class NativeText extends org.haxe.extension.Extension
 	{
 	}
 	
+	@Override
+	public void onResume()
+	{
+	    if (s_textFieldView != null)
+	    {
+	        ((ViewGroup)s_textFieldView.getParent()).removeView(s_textFieldView);
+	        mainActivity.addContentView(s_textFieldView, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));	        
+	    }
+	}
+	
 	private static void Initialize()
 	{
 	    if (!s_initialized)
