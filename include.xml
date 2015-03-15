@@ -8,6 +8,4 @@
     <dependency name="nativetext" path="dependencies/android" if="android" />
     <android extension="org.haxe.extension.nativetext.NativeText" />
 
-    <include path="../extensionkit" />
-
 </project>
