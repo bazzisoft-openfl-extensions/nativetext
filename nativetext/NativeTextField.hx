@@ -26,7 +26,6 @@ class NativeTextField extends EventDispatcher
     public function new(?config:NativeTextFieldConfig)
     {
         super();
-        
         this.eventDispatcherId = ExtensionKit.RegisterEventDispatcher(this);
         nativetext_create_text_field(this.eventDispatcherId, PrepareConfigForNativeCall(config));
     }
@@ -120,6 +119,7 @@ class NativeTextField extends EventDispatcher
         intConfig.returnKeyType = EnumToInt(config.returnKeyType);        
         return intConfig;
         #end
+		return {}
     }
     
     inline private function EnumToInt(e:EnumValue) : Null<Int>

@@ -4,10 +4,12 @@ import org.haxe.extension.extensionkit.HaxeCallback;
 import org.haxe.extension.extensionkit.Trace;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import android.content.Context;
 import android.text.InputType;
 import android.util.TypedValue;
+import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import java.io.UnsupportedEncodingException;
+import android.util.Log;
 
 
 class NativeTextField extends EditText implements View.OnFocusChangeListener
@@ -51,7 +55,11 @@ class NativeTextField extends EditText implements View.OnFocusChangeListener
         
         try 
         {
-            config = new Gson().fromJson(jsonConfig, NativeTextFieldConfig.class);
+            GsonBuilder b = new GsonBuilder();
+			b.registerTypeAdapter(Boolean.class, new NativeTextBooleanSerializer());
+			Gson gson = b.create();
+			
+			config = gson.fromJson(jsonConfig, NativeTextFieldConfig.class);
             
             if (config.textAlignment != null)
             {
@@ -71,12 +79,15 @@ class NativeTextField extends EditText implements View.OnFocusChangeListener
         catch (Exception e)
         {
             Trace.Error("Invalid JSON recieved in NativeText.ConfigureTextField()");
+            Trace.Error(jsonConfig);
             Trace.Error(e.toString());
             return;
         }
         
-// TODO: config.fontAsset
-// setTypeface(Typeface.SANS_SERIF, Typeface.NORMAL);
+		if(config.fontAsset != null){
+			Typeface t = Typeface.createFromAsset(getContext().getAssets(),config.fontAsset);
+			setTypeface(t);
+		}
         
         if (config.fontColor != null)
         {
@@ -100,11 +111,22 @@ class NativeTextField extends EditText implements View.OnFocusChangeListener
             setEnabled(config.enabled);
         }
         
+        if (config.alpha != null)
+        {
+            setAlpha(config.alpha);
+        }
+        
         if (config.placeholder != null)
         {
             setHint(config.placeholder);
+			
         }
-        
+		if(config.placeholderColor != null){
+			setHintTextColor (config.placeholderColor);
+		}
+		if(config.backgroundColor != null){
+			setBackgroundColor (config.backgroundColor);
+		}
         SetTextAlignment(config.textAlignmentEnum);
         SetKeyboardType(config.keyboardTypeEnum);
         SetReturnKeyType(config.returnKeyTypeEnum);
@@ -112,7 +134,7 @@ class NativeTextField extends EditText implements View.OnFocusChangeListener
     
     public String GetText()
     {
-        return getText().toString();
+		return getText().toString();
     }
     
     public void SetText(String text)

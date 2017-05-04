@@ -27,6 +27,8 @@ static int _id_placeholder;
 static int _id_fontAsset;
 static int _id_fontSize;
 static int _id_fontColor;
+static int _id_placeholderColor;
+static int _id_backgroundColor;
 static int _id_textAlignment;
 static int _id_keyboardType;
 static int _id_returnKeyType;
@@ -51,6 +53,8 @@ static void InitIds()
     _id_fontAsset = val_id("fontAsset");
     _id_fontSize = val_id("fontSize");
     _id_fontColor = val_id("fontColor");
+    _id_placeholderColor = val_id("placeholderColor");
+    _id_backgroundColor = val_id("fontColor");
     _id_textAlignment = val_id("textAlignment");
     _id_keyboardType = val_id("keyboardType");
     _id_returnKeyType = val_id("returnKeyType");    
@@ -79,6 +83,8 @@ static void DoConfigureTextField(int eventDispatcherId, value config)
     field = val_field(config, _id_fontAsset);       textFieldConfig.fontAsset.Set(val_string(field), val_is_string(field));
     field = val_field(config, _id_fontSize);        textFieldConfig.fontSize.Set(val_int(field), val_is_int(field));
     field = val_field(config, _id_fontColor);       textFieldConfig.fontColor.Set(val_int(field), val_is_int(field));
+    field = val_field(config, _id_placeholderColor);textFieldConfig.placeholderColor.Set(val_int(field), val_is_int(field));
+    field = val_field(config, _id_backgroundColor); textFieldConfig.backgroundColor.Set(val_int(field), val_is_int(field));
     field = val_field(config, _id_textAlignment);   textFieldConfig.textAlignment.Set((NativeTextFieldConfig::TextAlignment)val_int(field), val_is_int(field));
     field = val_field(config, _id_keyboardType);    textFieldConfig.keyboardType.Set((NativeTextFieldConfig::KeyboardType)val_int(field), val_is_int(field));
     field = val_field(config, _id_returnKeyType);   textFieldConfig.returnKeyType.Set((NativeTextFieldConfig::ReturnKeyType)val_int(field), val_is_int(field));

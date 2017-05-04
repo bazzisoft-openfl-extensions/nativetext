@@ -68,6 +68,8 @@ namespace nativetext
             Option<std::string> fontAsset;
             Option<int> fontSize;
             Option<int> fontColor;
+            Option<int> placeholderColor;
+            Option<int> backgroundColor;
             Option<TextAlignment> textAlignment;
             Option<KeyboardType> keyboardType;
             Option<ReturnKeyType> returnKeyType;

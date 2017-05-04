@@ -44,7 +44,7 @@ Installation
 ------------
 
     git clone https://github.com/bazzisoft-openfl-extensions/extensionkit
-    git clone https://github.com/bazzisoft-openfl-extensions/nativetext
+    git clone https://github.com/davellx/nativetext
     lime rebuild extensionkit [linux|windows|mac|android|ios]
     lime rebuild nativetext [linux|windows|mac|android|ios]
 
@@ -77,7 +77,7 @@ Usage
 				visible: true,
 				enabled: false,
 				placeholder: "Email Address",
-				fontAsset: "assets/font/OpenSans-Regular.ttf",		// TODO: No effect yet
+				fontAsset: Assets.getPath('font/OpenSans-Regular.ttf'),
 				fontSize: 36,
 				fontColor: 0xFF0000,
 				textAlignment: NativeTextFieldAlignment.Center,
