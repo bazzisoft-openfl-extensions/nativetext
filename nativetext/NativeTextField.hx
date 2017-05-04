@@ -20,16 +20,17 @@ class NativeTextField extends EventDispatcher
 {
     // Can use this for width/height in NativeTextFieldConfig
     public static inline var AUTOSIZE = -1.0;
-    
+
     public var eventDispatcherId(default, null):Int = 0;
-    
+
     public function new(?config:NativeTextFieldConfig)
     {
         super();
+
         this.eventDispatcherId = ExtensionKit.RegisterEventDispatcher(this);
         nativetext_create_text_field(this.eventDispatcherId, PrepareConfigForNativeCall(config));
     }
-    
+
     private inline function EnsureNotDestroyed()
     {
         if (0 == this.eventDispatcherId)
@@ -37,19 +38,19 @@ class NativeTextField extends EventDispatcher
             throw "NativeTextField object has been destroyed.";
         }
     }
-    
+
     public function Destroy()
     {
         EnsureNotDestroyed();
-        
+
         #if (android || cpp)
         nativetext_destroy_text_field(this.eventDispatcherId);
         #end
-        
+
         ExtensionKit.UnregisterEventDispatcher(this.eventDispatcherId);
         this.eventDispatcherId = 0;
     }
-    
+
     public function Configure(config:NativeTextFieldConfig)
     {
         EnsureNotDestroyed();
@@ -62,26 +63,26 @@ class NativeTextField extends EventDispatcher
     public function GetText() : String
     {
         EnsureNotDestroyed();
-        
+
         #if (android || cpp)
         return nativetext_get_text(this.eventDispatcherId);
         #else
         return null;
         #end
     }
-    
+
     /**
      * Note: String must be UTF8 encoded. See haxe.Utf8 if using more than ASCII.
      */
     public function SetText(text:String)
     {
         EnsureNotDestroyed();
-        
+
         #if (android || cpp)
         nativetext_set_text(this.eventDispatcherId, text);
         #end
     }
-    
+
     public function IsFocused() : Bool
     {
         #if (android || cpp)
@@ -90,11 +91,11 @@ class NativeTextField extends EventDispatcher
         return false;
         #end
     }
-    
+
     public function SetFocus()
     {
         ExtensionKit.stage.focus = null;
-        
+
         #if (android || cpp)
         nativetext_set_focus(this.eventDispatcherId);
         #end
@@ -106,31 +107,32 @@ class NativeTextField extends EventDispatcher
         nativetext_clear_focus(this.eventDispatcherId);
         #end
     }
-    
+
     private function PrepareConfigForNativeCall(config:NativeTextFieldConfig) : Dynamic
     {
         #if android
-        var jsonConfig = (null == config ? null : Json.stringify(config));	
+        var jsonConfig = (null == config ? null : Json.stringify(config));
         return jsonConfig;
         #elseif cpp
         var intConfig:Dynamic = Reflect.copy(config);
         intConfig.textAlignment = EnumToInt(config.textAlignment);
         intConfig.keyboardType = EnumToInt(config.keyboardType);
-        intConfig.returnKeyType = EnumToInt(config.returnKeyType);        
+        intConfig.returnKeyType = EnumToInt(config.returnKeyType);
         return intConfig;
         #end
+
 		return {}
     }
-    
+
     inline private function EnumToInt(e:EnumValue) : Null<Int>
     {
         return (null == e ? null : EnumValueTools.getIndex(e));
     }
-    
+
     //---------------------------------
     // Native/JNI Functions
     //---------------------------------
-    
+
     private static var nativetext_create_text_field = null;
     private static var nativetext_configure_text_field = null;
     private static var nativetext_destroy_text_field = null;
